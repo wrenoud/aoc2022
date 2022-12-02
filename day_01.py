@@ -1,12 +1,21 @@
 from util import Test, Answer, ReadPuzzle, ReadExamplePuzzle
 
 
+def make_elves(data):
+		elves = [[]]
+		for calories in data:
+			if calories == '':
+				elves.append([])
+			else:
+				elves[-1].append(int(calories))
+		return list(sum(v) for v in elves)
+
 def part1(data):
-    return None
+		return max(make_elves(data))
 
 
 def part2(data):
-    return None
+		return sum(sorted(make_elves(data))[-3:])
 
 
 def preprocess_data(data):
@@ -24,8 +33,8 @@ if __name__ == "__main__":
     for v in test_data:
         print(v)
 
-    if Test(1, part1(test_data), test_answer1):
+    if Test(1, part1(test_data), 24000):
         Answer(1, part1(data))
 
-    if Test(2, part2(test_data), None):
+    if Test(2, part2(test_data), 45000):
         Answer(2, part2(data))
