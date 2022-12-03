@@ -54,7 +54,12 @@ def ReadExamplePuzzle():
     datamatch = re.search("For example.*?:[\s\S]+?\<code\>([\s\S]+?)\n?\<\/code\>", instructions, re.MULTILINE)
     answermatch = re.search("\<code\>\<em\>(.*?)\<\/em\>\<\/code\>", instructions)
 
-    return datamatch.group(1).split("\n"), int(answermatch.group(1))
+    answer = None
+    try:
+        answer = int(answermatch.group(1))
+    except:
+        pass
+    return datamatch.group(1).split("\n"), answer
 
 
 def Test(part, answer, expected):
