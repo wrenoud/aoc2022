@@ -2,20 +2,21 @@ from util import Test, Answer, ReadPuzzle, ReadExamplePuzzle
 
 
 def make_elves(data):
-		elves = [[]]
-		for calories in data:
-			if calories == '':
-				elves.append([])
-			else:
-				elves[-1].append(int(calories))
-		return list(sum(v) for v in elves)
+    elves = [[]]
+    for calories in data:
+        if calories == '':
+            elves.append([])
+        else:
+            elves[-1].append(int(calories))
+    return list(sum(v) for v in elves)
+
 
 def part1(data):
-		return max(make_elves(data))
+    return max(make_elves(data))
 
 
 def part2(data):
-		return sum(sorted(make_elves(data))[-3:])
+    return sum(sorted(make_elves(data))[-3:])
 
 
 def preprocess_data(data):
