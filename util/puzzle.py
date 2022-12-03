@@ -57,7 +57,16 @@ def ReadExamplePuzzle():
     return datamatch.group(1).split("\n"), int(answermatch.group(1))
 
 
+def Test(part, answer, expected):
+    if answer is None or answer != expected:
+        print(f"Part {part} test: {answer}, expected {expected}", file=sys.stderr)
+        return False
+    else:
+        print(f"Part {part} test: {answer} is expected")
+        return True
+
+
 def Answer(part, answer):
     print("-" * 80)
-    print("Part {} answer:".format(part), answer)
+    print(f"Part {part} answer: {answer}")
     print("-" * 80)

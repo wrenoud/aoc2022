@@ -1,4 +1,4 @@
-from util import Answer, ReadPuzzle, ReadExamplePuzzle
+from util import Test, Answer, ReadPuzzle, ReadExamplePuzzle
 
 
 def part1(data):
@@ -19,13 +19,13 @@ if __name__ == "__main__":
     test_data, test_answer1 = ReadExamplePuzzle()
     test_data = preprocess_data(test_data)
 
-    assert part1(test_data) == test_answer1
-    # assert part2(test_data) == None
+    data = preprocess_data(ReadPuzzle())
 
-    # my answer
-    data = ReadPuzzle()
-    for v in data:
+    for v in test_data:
         print(v)
 
-    Answer(1, part1(data))
-    Answer(2, part2(data))
+    if Test(1, part1(test_data), test_answer1):
+        Answer(1, part1(data))
+
+    if Test(2, part2(test_data), None):
+        Answer(2, part2(data))

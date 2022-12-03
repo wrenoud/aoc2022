@@ -1,4 +1,4 @@
-from util.puzzle import ReadPuzzle, Answer, ReadExamplePuzzle
+from util.puzzle import ReadPuzzle, Test, Answer, ReadExamplePuzzle
 
 
 class Point(object):
