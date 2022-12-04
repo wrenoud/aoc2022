@@ -2,10 +2,9 @@ from util import Test, Answer, ReadPuzzle, ReadExamplePuzzle
 
 
 class Range(object):
-    def __init__(self, str_repr):
-        self.min, self.max = str_repr.split("-")
-        self.min = int(self.min)
-        self.max = int(self.max)
+    def __init__(self, minimum, maximum):
+        self.min = minimum if isinstance(minimum, int) else int(minimum)
+        self.max = maximum if isinstance(maximum, int) else int(maximum)
 
     def __contains__(self, item):
         if isinstance(item, self.__class__):
@@ -13,7 +12,7 @@ class Range(object):
         elif isinstance(item, int):
             return self.min <= item <= self.max
 
-    def overlap(self, other):
+    def overlaps(self, other):
         return other.min in self or \
                other.max in self or \
                self.min in other or \
@@ -34,14 +33,15 @@ def part1(data):
 def part2(data):
     overlap = 0
     for left, right in data:
-        if left.overlap(right):
+        if left.overlaps(right):
             overlap += 1
     return overlap
 
 
 def preprocess_data(data):
     """Do any additional parsing to the data to prep for answers"""
-    return list((Range(left), Range(right)) for left, right in (d.split(",") for d in data))
+    pairs = (d.split(",") for d in data)
+    return list((Range(*left.split("-")), Range(*right.split("-"))) for left, right in pairs)
 
 
 if __name__ == "__main__":
