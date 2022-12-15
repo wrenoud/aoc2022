@@ -35,3 +35,13 @@ class Point(object):
 
     def __str__(self):
         return self.__repl__()
+
+    @property
+    def row(self):
+        return self.x
+
+    @property
+    def col(self):
+        return self.y
+
+
