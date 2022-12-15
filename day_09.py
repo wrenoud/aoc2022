@@ -69,14 +69,15 @@ def part2(data):
         elif dir == 'L': step = Point(-1,0)
         elif dir == 'U': step = Point(0,1)
         elif dir == 'D': step = Point(0,-1)
+        # print(f"\n== {line} ==\n")
         for i in range(int(count)):
             knots[0][0] += step
             next = step
             for i in range(1,10):
                 knots[i][0].follow(knots[i-1][0])
             trail.add(knots[-1][0]+s)
-            #show_map(dict(knots))
-    #show_map(dict(zip(list(trail),['#']*len(trail))))
+            # show_map(dict(knots))
+    # show_map(dict(zip(list(trail),['#']*len(trail))))
     return len(trail)
 
 
@@ -98,5 +99,5 @@ if __name__ == "__main__":
     if Test(1, part1(test_data), test_answer1):
         Answer(1, part1(data))
 
-    if Test(2, part2(test_data), None):
+    if Test(2, part2(test_data), 1) and Test(2, part2(["R 5","U 8","L 8","D 3","R 17","D 10","L 25","U 20"]), 36):
         Answer(2, part2(data))
