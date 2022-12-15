@@ -55,8 +55,58 @@ def part1(data):
     return sum(sum(c for c in row) for row in res)
 
 
+def search_NS(forest: Forest, tree: Point, south: bool):
+    rows, _ = forest.dims
+    tree_height = forest[tree]
+    count = 0
+    step = 1 if south else -1
+    r = tree.row + step
+    if 0 > r >= rows:
+        return 0
+    while 0 <= r < rows:
+        neighbor = forest[r, tree.col]
+        r += step
+        count += 1
+        if neighbor >= tree_height:
+            break
+    return count
+
+
+def search_WE(forest: Forest, tree: Point, east: bool):
+    _, cols = forest.dims
+    tree_height = forest[tree]
+    count = 0
+    step = 1 if east else -1
+    c = tree.col + step
+    if 0 > c >= cols:
+        return 0
+    while 0 <= c < cols:
+        neighbor = forest[tree.row, c]
+        c += step
+        count += 1
+        if neighbor >= tree_height:
+            break
+    return count
+
+
+def scenic_score(forest: Forest, tree: Point):
+    a = search_NS(forest, tree, True)
+    b = search_NS(forest, tree, False)
+    c = search_WE(forest, tree, True)
+    d = search_WE(forest, tree, False)
+    return a * b * c * d
+
 def part2(data):
-    return None
+    rows, cols = data.dims
+    best = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            tree = Point(r, c)
+            score = scenic_score(data, tree)
+            if score > best:
+                best = score
+    return best
 
 
 def preprocess_data(data):
@@ -74,5 +124,5 @@ if __name__ == "__main__":
     if Test(1, part1(test_data), test_answer1):
         Answer(1, part1(data))
 
-    if Test(2, part2(test_data), 8):
+    if Test(2, scenic_score(test_data, Point(3, 2)), 8):
         Answer(2, part2(data))
